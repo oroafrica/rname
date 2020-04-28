@@ -341,7 +341,7 @@ class Item
 	{
 		
 		
-		return "<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='400' height='150'>"
+		return "<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='350' height='200'>"
 		.concat("<defs>")
 		.concat("<style type='text/css'>@font-face")
 		.concat("{")
@@ -363,7 +363,7 @@ class Item
 		
 		.concat("</defs>")
 		
-		.concat("<g><text id='txt1' style='font-size:25;stroke:none;text-anchor:middle;font-family:wz_bname' filter='url(#Bevel)' fill='#bbb100' transform='matrix(1 0 0 1 200 90)' >Nina</text></g>")
+		.concat("<g><text id='txt1' style='font-size:25;stroke:none;text-anchor:middle;font-family:wz_bname' filter='url(#Bevel)' fill='#bbb100' transform='matrix(1 0 0 1 175 110)' >Nina</text></g>")
 		.concat("</svg>");
 	}	
 }
