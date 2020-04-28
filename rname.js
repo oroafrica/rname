@@ -121,8 +121,9 @@ class ProductTwo
 			if(selectEndOne === 'undefined'){selectEndOne = 0; console.log("selectEndOne undefined: " + selectEndOne);}
 			if(inputName === 'undefined'){inputName = "Cara";console.log("my input: " + inputName)}
             //suffix map
-            var SUFFIX = {0:61000 + inputName.codePointAt(inputName.length-1), 1:61043, 2:61095,3:61043,4:61095};
-			// var PREFIX = {0:60000,2:61000,3:60043};
+             var SUFFIX = {0:61000 + inputName.codePointAt(inputName.length-1), 1:61043, 2:61095,3:61043,4:61095};
+            // var SUFFIX = {0:61043, 1:61095,2:61043,3:61095};
+
             const x = 60000;
             const y = 61000;
             var regex = /[\(\)\[\]:;#@\^\|\?\",<>\!\\_=\+\*~`\.\{\}']/g;
@@ -133,6 +134,7 @@ class ProductTwo
             //map prefix, body, suffix
             let _a, _b, _c, _d;
 
+			_a = "";
             if(inputName.substring(0,1).match(/^[\&|\-]/g))
             {
                 return;
@@ -141,45 +143,57 @@ class ProductTwo
 			{
 				return;
 			}    
-            else
+            else if(inputName.length > 0)
             {
-                _a = String.fromCharCode(inputName.substring(0,1).charCodeAt(0) + x);
+                _a = String.fromCharCode(inputName.charCodeAt(0) + x);
 				_d = inputName;
             }
-	     
-	     
+			
             _b = "";
             if(inputName.length > 1)
             {
                 _b = inputName.substring(1,inputName.length-1);
-				_c = String.fromCharCode(SUFFIX[selectEndOne]);
             }
             
 			
-            var _target = svgDoc.getElementsByTagName("text")[0];
-			
-			//wrapper predicate
-			if(selectEndOne > 2)
+			_c = "";
+			if(selectEndOne === 0 && inputName.length > 1 )
 			{
-				_target.textContent = String.fromCharCode(SUFFIX[selectEndOne]-1000).concat(_d).concat(String.fromCharCode(SUFFIX[selectEndOne]));
+				
+				_c = String.fromCharCode(SUFFIX[selectEndOne]);
 			}
-			else
+			else if((selectEndOne === 1 || selectEndOne === 2) &&  inputName.length === 1)
 			{
-				_target.textContent = "";
-            
-				var _prefix ,_body, _suffix;
-				_prefix = document.createElementNS(this.ns,"tspan");
-				_body = document.createElementNS(this.ns,"tspan");
-				_suffix = document.createElementNS(this.ns,"tspan"); 
-			   
-				_prefix.textContent = _a;
-				_body.textContent = _b;
-				_suffix.textContent = _c;
+				_c =String.fromCharCode(SUFFIX[selectEndOne]);
+			}
+			else if((selectEndOne === 1 || selectEndOne === 2) &&  inputName.length > 1)
+			{
+				_c = inputName.substring(inputName.length-1,inputName.length) + String.fromCharCode(SUFFIX[selectEndOne]);
+			}
+		
+			else if(selectEndOne > 2)
+			{
+				_a = "";
+				_b = String.fromCharCode(SUFFIX[selectEndOne]-1000).concat(_d).concat(String.fromCharCode(SUFFIX[selectEndOne]));
+				_c = "";
+			}
 
-				_target.appendChild(_prefix);
-				_target.appendChild(_body);
-				_target.appendChild(_suffix);
-			}
+			var _target = svgDoc.getElementsByTagName("text")[0];
+			_target.textContent = "";
+		
+			var _prefix ,_body, _suffix;
+			_prefix = document.createElementNS(this.ns,"tspan");
+			_body = document.createElementNS(this.ns,"tspan");
+			_suffix = document.createElementNS(this.ns,"tspan"); 
+		   
+			_prefix.textContent = _a;
+			_body.textContent = _b;
+			_suffix.textContent = _c;
+
+			_target.appendChild(_prefix);
+			_target.appendChild(_body);
+			_target.appendChild(_suffix);
+			
             
         } 
         catch (e) 
